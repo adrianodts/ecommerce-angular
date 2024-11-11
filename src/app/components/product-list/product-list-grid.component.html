@@ -1,0 +1,110 @@
+<!-- <div *ngFor="let product of productList">
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{product.imageUrl}}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.description}}</p>
+          <p class="card-text"><small class="text-body-secondary">{{product.unitPrice | currency}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <div class="card main-content">
+  <div class="section-content section-content-p30">
+    <h4>Category: {{ currentCategoryName }}</h4>
+    <hr>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3" *ngFor="let product of productList">
+          <div class="product-box">
+            <img src="{{product.imageUrl}}" class="img-responsive rounded-start" alt="">
+            <h1>{{product.name}}</h1>
+            <div class="price">{{product.unitPrice | currency:'BRL'}}</div>
+            <a href="#" class="primary-btn">Add to cart</a>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="productList?.length == 0">
+          <div class="alert alert-warning" role="alert">
+            No products found.
+          </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <h4>Category: {{ currentCategoryName }}</h4>
+        <hr>
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- loop over the collection of products -->
+                <div *ngFor="let product of productList" class="col-md-3">
+
+                    <div class="product-box">
+
+                        <a routerLink="/products/{{ product.id }}">
+                            <img src="{{ product.imageUrl }}" class="img-responsive" alt="{{ product.name }}">
+                        </a>
+
+                        <h1>{{ product.name }}</h1>
+
+                        <div class="price">{{ product.unitPrice | currency:'USD' }}</div>
+                        <button (click)="addToCart(product)" class="btn btn-primary btn-sm">Add to cart</button>
+                    </div>
+
+                </div>
+
+                <!-- if products empty then display a message-->
+                <div *ngIf="productList?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                    No products found.
+                </div>
+
+            </div>
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-4"></div>
+
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%">
+
+                                <ngb-pagination [(page)]="pageNumber"
+                                                [pageSize]="pageSize"
+                                                [collectionSize]="totalElements"
+                                                [maxSize]="5"
+                                                [boundaryLinks]="true"
+                                                [maxSize] = "5"
+                                                [boundaryLinks]="true"
+                                                (pageChange)="listProducts()">
+
+                                </ngb-pagination>
+
+                            </div>
+
+                            <div class="col-md-3 mt-2" style="text-align: right;">
+                                <span class="mr-2">Page Size</span>
+
+                                <select #myPageSelect title="Select page size" (change)="updatePageSize(myPageSelect.value)">
+                                    <option>2</option>
+                                    <option selected="true">5</option>
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>50</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
